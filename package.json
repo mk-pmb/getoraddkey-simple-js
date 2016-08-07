@@ -1,5 +1,5 @@
 { "name": "getoraddkey-simple",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "If your collection is missing the slot you want to work with, have it be created on the fly. Simple edition, aimed to be small and fast.",
   "keywords": [ "dict", "has", "push", "safePush" ],
 

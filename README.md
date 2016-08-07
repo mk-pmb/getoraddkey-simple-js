@@ -8,7 +8,7 @@ The "simple" edition is aimed to be small, fast and cover just
 the most common use cases. If you need async factory functions
 and custom preconfiguration, check out [getoraddkey-fancy][goa-fancy].
 
-Inspired by [lodash feature request #2288](ld-is2288).
+Inspired by [lodash feature request #2288][ld-is2288].
 
 
 Usage
