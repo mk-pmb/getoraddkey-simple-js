@@ -1,0 +1,32 @@
+{ "name": "getoraddkey-simple",
+  "version": "0.0.1",
+  "description": "If your collection is missing the slot you want to work with, have it be created on the fly. Simple edition, aimed to be small and fast.",
+  "keywords": [
+    "dict"
+    "has"
+    "push"
+    "safePush"
+  ],
+
+  "author": "M.K. (https://github.com/mk-pmb)",
+  "homepage": "https://github.com/mk-pmb/getoraddkey-simple-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk-pmb/getoraddkey-simple-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mk-pmb/getoraddkey-simple-js/issues"
+  },
+
+  "private": false, "license": "ISC",
+
+  "main": "goak-simple.js",
+  "scripts": { "test": "demo-util-160404-test-demos" },
+  "directories": {},
+
+  "dependencies": {},
+  "devDependencies": { "lib-demo-util-160404": "^0.1.6" },
+
+
+  "npm vs. BOM = Unexpected token": "-*- coding: UTF-8 -*-"
+}
