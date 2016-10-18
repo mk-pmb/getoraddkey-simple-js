@@ -6,8 +6,28 @@
 var EX, hasOwn = Function.call.bind(Object.prototype.hasOwnProperty);
 
 EX = function getOrAddKey(dict, key, receipe) {
+  if ((key && typeof key) === 'object') {
+    dict = EX.dive(dict, key, 1, function (rmn) { key = rmn[0]; });
+  }
   if (hasOwn(dict, key)) { return dict[key]; }
   return EX.setProp(dict, key, EX.make(receipe, dict, key));
+};
+
+
+EX.dive = function (dict, path, keepCnt, withKept) {
+  if (!Number.isFinite(path.length)) { return dict; }
+  var idx, len = path.length, steps = len - (+keepCnt || 0), step, kept = [];
+  for (idx = 0; idx < len; idx += 1) {
+    step = path[idx];
+    if (idx < steps) {
+      if (!hasOwn(dict, step)) { dict[step] = {}; }
+      dict = dict[step];
+    } else {
+      kept[kept.length] = step;
+    }
+  }
+  if (withKept) { withKept(kept); }
+  return dict;
 };
 
 
@@ -62,7 +82,7 @@ EX.make = function (receipe) {
   case 'function':
     return receipe.apply(null, Array.prototype.slice.call(arguments, 1));
   case 'object':
-    if (receipe instanceof Array) { return receipe[0]; }
+    if (Array.isArray(receipe)) { return receipe[0]; }
     return receipe.value;
   }
   throw new Error('Unsupported receipe type: ' + String(receipe));
