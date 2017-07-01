@@ -5,7 +5,9 @@
 
 var EX, hasOwn = Function.call.bind(Object.prototype.hasOwnProperty);
 
+
 EX = function getOrAddKey(dict, key, receipe) {
+  if (!dict) { return false; }
   if ((key && typeof key) === 'object') {
     dict = EX.dive(dict, key, 1, function (rmn) { key = rmn[0]; });
   }
@@ -15,6 +17,7 @@ EX = function getOrAddKey(dict, key, receipe) {
 
 
 EX.dive = function (dict, path, keepCnt, withKept) {
+  if (!dict) { return false; }
   if (!Number.isFinite(path.length)) { return dict; }
   var idx, len = path.length, steps = len - (+keepCnt || 0), step, kept = [];
   for (idx = 0; idx < len; idx += 1) {
