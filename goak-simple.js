@@ -3,7 +3,8 @@
 'use strict';
 
 
-var EX, hasOwn = Function.call.bind(Object.prototype.hasOwnProperty);
+var EX, hasOwn = Function.call.bind(Object.prototype.hasOwnProperty),
+  arSlc = Array.prototype.slice;
 
 
 EX = function getOrAddKey(dict, key, receipe) {
@@ -53,8 +54,9 @@ EX.dynArg = function (kwargs) {
 
 EX.pushToKey = function pushToKey(dict, key, values) {
   var arr;
-  values = Array.prototype.slice.call(arguments, 2);
+  values = arSlc.call(arguments, 2);
   if ((typeof dict) === 'string') {
+    // swap args "key" and "dict"
     arr = key;
     key = dict;
     dict = arr;
@@ -83,7 +85,7 @@ EX.make = function (receipe) {
     }
     return JSON.parse(receipe);
   case 'function':
-    return receipe.apply(null, Array.prototype.slice.call(arguments, 1));
+    return receipe.apply(null, arSlc.call(arguments, 1));
   case 'object':
     if (Array.isArray(receipe)) { return receipe[0]; }
     return receipe.value;
