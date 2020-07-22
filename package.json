@@ -1,5 +1,5 @@
 { "name": "getoraddkey-simple",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "If your collection is missing the slot you want to work with, have it be created on the fly. Simple edition, aimed to be small and fast.",
   "keywords": [
     "get or add", "get", "add",

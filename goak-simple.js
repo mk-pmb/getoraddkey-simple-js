@@ -67,6 +67,19 @@ EX.pushToKey = function pushToKey(dict, key, values) {
 };
 
 
+function makeObjectReceipe(rec) {
+  if (Array.isArray(rec)) {
+    if (rec.length === 1) { return rec[0]; }
+    throw new Error('Array recipe must have exactly one item');
+  }
+  var keys = Object.keys(rec);
+  if ((keys.length === 1) && (keys[0] === 'value')) { return rec.value; }
+  keys = ('Object recipe must have exactly one property "value", '
+    + 'not ' + keys.length + ' ' + JSON.stringify(keys));
+  throw new Error(keys);
+}
+
+
 EX.make = function (receipe) {
   switch (receipe && typeof receipe) {
   case 'string':
@@ -87,8 +100,7 @@ EX.make = function (receipe) {
   case 'function':
     return receipe.apply(null, arSlc.call(arguments, 1));
   case 'object':
-    if (Array.isArray(receipe)) { return receipe[0]; }
-    return receipe.value;
+    return makeObjectReceipe(receipe);
   }
   throw new Error('Unsupported receipe type: ' + String(receipe));
 };
