@@ -8,6 +8,9 @@ var EX, hasOwn = Function.call.bind(Object.prototype.hasOwnProperty),
 
 
 EX = function getOrAddKey(dict, key, receipe) {
+  /* Note to future self: If you're sad that arguments are in the opposite
+     order of what would be useful for .bind()ing, remember .preset(). */
+
   if (!dict) { return false; }
   if ((key && typeof key) === 'object') {
     dict = EX.dive(dict, key, 1, function (rmn) { key = rmn[0]; });
@@ -103,6 +106,14 @@ EX.make = function make(receipe) {
     return makeObjectReceipe(receipe);
   }
   throw new Error('Unsupported receipe type: ' + String(receipe));
+};
+
+
+EX.preset = function preset(receipe, preKey) {
+  if (preKey === undefined) {
+    return function presetGetOrAddKey(k, d) { return EX(d, k, recipe); };
+  }
+  return function presetGetOrAddKey(d) { return EX(d, preKey, recipe); };
 };
 
 
