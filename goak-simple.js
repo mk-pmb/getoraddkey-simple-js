@@ -17,7 +17,7 @@ EX = function getOrAddKey(dict, key, receipe) {
 };
 
 
-EX.dive = function (dict, path, keepCnt, withKept) {
+EX.dive = function dive(dict, path, keepCnt, withKept) {
   if (!dict) { return false; }
   if (!Number.isFinite(path.length)) { return dict; }
   var idx, len = path.length, steps = len - (+keepCnt || 0), step, kept = [];
@@ -35,13 +35,13 @@ EX.dive = function (dict, path, keepCnt, withKept) {
 };
 
 
-EX.setProp = function (obj, prop, value) {
+EX.setProp = function setProp(obj, prop, value) {
   obj[prop] = value;
   return value;
 };
 
 
-EX.dynArg = function (kwargs) {
+EX.dynArg = function dynArg(kwargs) {
   var slot = kwargs.dyn;
   kwargs = Object.assign(Object.create(null), kwargs);
   if (!kwargs.receipe) { kwargs.receipe = '{null}'; }
@@ -80,7 +80,7 @@ function makeObjectReceipe(rec) {
 }
 
 
-EX.make = function (receipe) {
+EX.make = function make(receipe) {
   switch (receipe && typeof receipe) {
   case 'string':
     switch (receipe) {
