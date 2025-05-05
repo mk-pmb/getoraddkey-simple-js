@@ -109,7 +109,7 @@ EX.make = function make(receipe) {
 };
 
 
-EX.preset = function preset(receipe, preKey) {
+EX.preset = function preset(recipe, preKey) {
   if (preKey === undefined) {
     return function presetGetOrAddKey(k, d) { return EX(d, k, recipe); };
   }
