@@ -7,7 +7,7 @@ var EX, hasOwn = Function.call.bind(Object.prototype.hasOwnProperty),
   arSlc = Array.prototype.slice;
 
 
-EX = function getOrAddKey(dict, key, receipe) {
+EX = function getOrAddKey(dict, key, recipe) {
   /* Note to future self: If you're sad that arguments are in the opposite
      order of what would be useful for .bind()ing, remember .preset(). */
 
@@ -16,7 +16,7 @@ EX = function getOrAddKey(dict, key, receipe) {
     dict = EX.dive(dict, key, 1, function (rmn) { key = rmn[0]; });
   }
   if (hasOwn(dict, key)) { return dict[key]; }
-  return EX.setProp(dict, key, EX.make(receipe, dict, key));
+  return EX.setProp(dict, key, EX.make(recipe, dict, key));
 };
 
 
@@ -47,10 +47,10 @@ EX.setProp = function setProp(obj, prop, value) {
 EX.dynArg = function dynArg(kwargs) {
   var slot = kwargs.dyn;
   kwargs = Object.assign(Object.create(null), kwargs);
-  if (!kwargs.receipe) { kwargs.receipe = '{null}'; }
+  if (!kwargs.recipe) { kwargs.recipe = '{null}'; }
   return function (arg) {
     kwargs[slot] = arg;
-    return EX(kwargs.dict, kwargs.key, kwargs.receipe);
+    return EX(kwargs.dict, kwargs.key, kwargs.recipe);
   };
 };
 
@@ -70,7 +70,7 @@ EX.pushToKey = function pushToKey(dict, key, values) {
 };
 
 
-function makeObjectReceipe(rec) {
+function makeObjectrecipe(rec) {
   if (Array.isArray(rec)) {
     if (rec.length === 1) { return rec[0]; }
     throw new Error('Array recipe must have exactly one item');
@@ -83,10 +83,10 @@ function makeObjectReceipe(rec) {
 }
 
 
-EX.make = function make(receipe) {
-  switch (receipe && typeof receipe) {
+EX.make = function make(recipe) {
+  switch (recipe && typeof recipe) {
   case 'string':
-    switch (receipe) {
+    switch (recipe) {
     case 'ocn':
     case '{null}':
       return Object.create(null);
@@ -99,13 +99,13 @@ EX.make = function make(receipe) {
     case 'undef':
       return undefined;
     }
-    return JSON.parse(receipe);
+    return JSON.parse(recipe);
   case 'function':
-    return receipe.apply(null, arSlc.call(arguments, 1));
+    return recipe.apply(null, arSlc.call(arguments, 1));
   case 'object':
-    return makeObjectReceipe(receipe);
+    return makeObjectrecipe(recipe);
   }
-  throw new Error('Unsupported receipe type: ' + String(receipe));
+  throw new Error('Unsupported recipe type: ' + String(recipe));
 };
 
 
